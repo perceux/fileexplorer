@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>FileExplorer.html</welcome-file>
+	</welcome-file-list>
+
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>PHP</servlet-name>
+		<servlet-class>org.mortbay.servlet.CGI</servlet-class>
+		<init-param>
+			<param-name>commandPrefix</param-name>
+			<param-value>C:/dev/java/tools/xampplite/php/php-cgi.exe</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ENV_REDIRECT_STATUS</param-name>
+			<param-value>200</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ENV_SystemRoot</param-name>
+			<param-value>C:/WINDOWS</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PHP</servlet-name>
+		<url-pattern>/php/*</url-pattern>
+	</servlet-mapping>
+
+</web-app>
