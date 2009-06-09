@@ -3,9 +3,7 @@
  */
 package org.dreamsoft.fileexplorer.client.dialog.controler;
 
-import org.dreamsoft.fileexplorer.client.dialog.model.FileModel;
-
-import com.extjs.gxt.ui.client.data.BasePagingLoadConfig;
+import com.extjs.gxt.ui.client.data.BaseListLoadConfig;
 
 /**
  * 
@@ -13,7 +11,7 @@ import com.extjs.gxt.ui.client.data.BasePagingLoadConfig;
  * 
  */
 @SuppressWarnings("serial")
-public class FileListLoadConfig extends BasePagingLoadConfig {
+public class FileListLoadConfig extends BaseListLoadConfig {
 
 	/**
 	 * @param homeDirectoryP

@@ -4,8 +4,10 @@
 package org.dreamsoft.fileexplorer.client.dialog.ui;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import org.dreamsoft.fileexplorer.client.dialog.SiteManager;
 import org.dreamsoft.fileexplorer.client.dialog.controler.AddressControler;
 import org.dreamsoft.fileexplorer.client.dialog.controler.FilesEvents;
 import org.dreamsoft.fileexplorer.client.dialog.model.SiteModel;
@@ -113,14 +115,14 @@ public class AddressToolBar extends ToolBar {
 			}
 		});
 		add(refresh);
-		// Site
-		ListStore<SiteModel> sites = new ListStore<SiteModel>();
-		sites.add(new SiteModel("localhost", "http://localhost:8080/php/file.php", null, "http://localhost:8080/favicon.ico", null));
-		sites.add(new SiteModel("fuckbox", "http://fuckbox.free.fr/file.php", null, "http://fuckbox.free.fr/favicon.ico", null));
 
 		ComboBox<SiteModel> combo2 = new ComboBox<SiteModel>();
 		combo2.setWidth(150);
-		combo2.setStore(sites);
+		ListStore<SiteModel> store = new ListStore<SiteModel>();
+		for (Iterator<SiteModel> iterator = SiteManager.getSites().iterator(); iterator.hasNext();) {
+			store.add(iterator.next());
+		}
+		combo2.setStore(store);
 		combo2.setTemplate(getFlagTemplate());
 		combo2.setDisplayField("name");
 		combo2.setTypeAhead(true);

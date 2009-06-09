@@ -63,7 +63,7 @@ public class FileList extends AbstractFileUI {
 				if (fileModel != null) {
 					// If it's a directory then change the current
 					if (fileModel.isDirectory()) {
-						FilesEvents.fireDirectoryChanged(getFullPath(fileModel.getName()));
+						FilesEvents.fireDirectoryChanged(fileModel.getPathName());
 					}
 					// It's a file, so fire onSucess event
 					else {

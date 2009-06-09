@@ -1,7 +1,6 @@
 package org.dreamsoft.fileexplorer.client;
 
 import org.dreamsoft.fileexplorer.client.dialog.model.Favorite;
-import org.dreamsoft.fileexplorer.client.dialog.model.FileModel;
 import org.dreamsoft.fileexplorer.client.dialog.ui.FileExplorerPanel;
 
 import com.extjs.gxt.ui.client.GXT;
@@ -15,21 +14,21 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class FileExplorer implements EntryPoint {
 
-	private FileExplorerPanel fileExplorerPabel = null;
+	private FileExplorerPanel fileExplorerPanel = null;
 
 	public void onModuleLoad() {
 		GXT.hideLoadingPanel("loading"); // hide loading ...
 		Viewport viewport = new Viewport();
 		viewport.setLayout(new FitLayout());
 		createDialog();
-		viewport.add(fileExplorerPabel);
+		viewport.add(fileExplorerPanel);
 		RootPanel.get().add(viewport);
 	}
 
 	private void createDialog() {
-		fileExplorerPabel = new FileExplorerPanel();
-		fileExplorerPabel.addFavorite(new Favorite("Computer", "/windows", "icon-computer"));
-		fileExplorerPabel.addFavorite(new Favorite("Network", "/", "icon-network"));
-		fileExplorerPabel.addFavorite(new Favorite("Projects", "/dev", "icon-favorite"));
+		fileExplorerPanel = new FileExplorerPanel();
+		fileExplorerPanel.addFavorite(new Favorite("Computer", "/windows", "icon-computer"));
+		fileExplorerPanel.addFavorite(new Favorite("Network", "/", "icon-network"));
+		fileExplorerPanel.addFavorite(new Favorite("Projects", "/dev", "icon-favorite"));
 	}
 }

@@ -35,11 +35,11 @@ public class FileExplorerPanel extends LayoutContainer {
 		filePanel.setScrollMode(Scroll.AUTOX);
 
 		BorderLayoutData northData = new BorderLayoutData(LayoutRegion.NORTH, 50);
-		northData.setCollapsible(true);
+		northData.setCollapsible(false);
 		northData.setFloatable(true);
 		northData.setHideCollapseTool(true);
-		northData.setSplit(true);
-		northData.setMargins(new Margins(5, 5, 0, 5));
+		northData.setSplit(false);
+		northData.setMargins(new Margins(0, 5, 0, 0));
 
 		BorderLayoutData westData = new BorderLayoutData(LayoutRegion.WEST, 150);
 		westData.setSplit(true);

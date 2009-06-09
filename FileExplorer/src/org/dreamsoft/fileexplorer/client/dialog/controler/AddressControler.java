@@ -1,6 +1,5 @@
 package org.dreamsoft.fileexplorer.client.dialog.controler;
 
-import org.dreamsoft.fileexplorer.client.dialog.model.FileModel;
 import org.dreamsoft.fileexplorer.client.dialog.ui.AddressToolBar;
 
 import com.extjs.gxt.ui.client.mvc.AppEvent;

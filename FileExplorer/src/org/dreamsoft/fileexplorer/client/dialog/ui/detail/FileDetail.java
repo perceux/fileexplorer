@@ -18,9 +18,6 @@ import com.extjs.gxt.ui.client.widget.grid.ColumnData;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
 import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
-import com.extjs.gxt.ui.client.widget.grid.GridGroupRenderer;
-import com.extjs.gxt.ui.client.widget.grid.GroupColumnData;
-import com.extjs.gxt.ui.client.widget.grid.GroupingView;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.i18n.client.DateTimeFormat;
 
@@ -85,7 +82,7 @@ public class FileDetail extends AbstractFileUI {
 				if (fileModel != null) {
 					// If it's a directory then change the current
 					if (fileModel.isDirectory()) {
-						FilesEvents.fireDirectoryChanged(getFullPath(fileModel.getName()));
+						FilesEvents.fireDirectoryChanged(fileModel.getPathName());
 					}
 					// It's a file, so fire onSuccess event
 					else {
