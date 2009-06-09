@@ -10,7 +10,6 @@ import org.dreamsoft.fileexplorer.client.dialog.ui.detail.AbstractFileUI;
 
 import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
-import com.extjs.gxt.ui.client.store.GroupingStore;
 import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.Info;
 
@@ -29,7 +28,7 @@ public class FileControler extends Controller {
 	public FileControler(FilePanel panelP, FileDescription fileDescriptionP) {
 		filePanel = panelP;
 		fileDescription = fileDescriptionP;
-		registerEventTypes(FilesEvents.DIRECTORY_CHANGED, FilesEvents.STORE_CHANGED, FilesEvents.DISPLAY_TYPE_CHANGED, FilesEvents.CURRENT_FILE_CHANGED);
+		registerEventTypes(FilesEvents.STORE_CHANGED, FilesEvents.DISPLAY_TYPE_CHANGED, FilesEvents.CURRENT_FILE_CHANGED);
 	}
 
 	/**
@@ -46,17 +45,10 @@ public class FileControler extends Controller {
 		}
 		// Store Content changed
 		else if (eventP.getType().equals(FilesEvents.STORE_CHANGED)) {
-			Info.display("","Mise à jour des views");
+			Info.display("", "Mise à jour des views");
 			for (Iterator<AbstractFileUI> iterator = filePanel.getFilesUI().iterator(); iterator.hasNext();) {
 				AbstractFileUI fileUI = iterator.next();
 				fileUI.setStore((ListStore<FileModel>) eventP.getData());
-			}
-		}
-		// Directory changed
-		else if (eventP.getType().equals(FilesEvents.DIRECTORY_CHANGED)) {
-			for (Iterator<AbstractFileUI> iterator = filePanel.getFilesUI().iterator(); iterator.hasNext();) {
-				AbstractFileUI fileUI = iterator.next();
-				fileUI.setBasePath((String) eventP.getData());
 			}
 		}
 	}

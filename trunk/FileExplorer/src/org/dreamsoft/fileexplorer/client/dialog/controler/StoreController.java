@@ -1,27 +1,28 @@
 package org.dreamsoft.fileexplorer.client.dialog.controler;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.dreamsoft.fileexplorer.client.dialog.model.FileModel;
 
 import com.extjs.gxt.ui.client.Registry;
-import com.extjs.gxt.ui.client.data.BasePagingLoadResult;
-import com.extjs.gxt.ui.client.data.BasePagingLoader;
+import com.extjs.gxt.ui.client.data.BaseListLoadResult;
+import com.extjs.gxt.ui.client.data.BaseListLoader;
 import com.extjs.gxt.ui.client.data.DataField;
 import com.extjs.gxt.ui.client.data.JsonLoadResultReader;
+import com.extjs.gxt.ui.client.data.ListLoadConfig;
 import com.extjs.gxt.ui.client.data.ListLoadResult;
 import com.extjs.gxt.ui.client.data.LoadEvent;
 import com.extjs.gxt.ui.client.data.ModelData;
 import com.extjs.gxt.ui.client.data.ModelType;
-import com.extjs.gxt.ui.client.data.PagingLoadConfig;
-import com.extjs.gxt.ui.client.data.PagingLoadResult;
 import com.extjs.gxt.ui.client.data.ScriptTagProxy;
 import com.extjs.gxt.ui.client.event.LoadListener;
 import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
-import com.extjs.gxt.ui.client.store.GroupingStore;
 import com.extjs.gxt.ui.client.store.ListStore;
+import com.extjs.gxt.ui.client.store.Store;
+import com.extjs.gxt.ui.client.store.StoreSorter;
 import com.extjs.gxt.ui.client.widget.Info;
 import com.extjs.gxt.ui.client.widget.InfoConfig;
 import com.google.gwt.user.client.Window;
@@ -29,19 +30,16 @@ import com.google.gwt.user.client.Window;
 public class StoreController extends Controller {
 
 	private String url;
-	private BasePagingLoader<PagingLoadResult<FileModel>> loader;
+	private BaseListLoader<ListLoadResult<FileModel>> loader;
 	private ListStore<FileModel> store;
 	private FileListLoadConfig loadConfig = new FileListLoadConfig();
-	private ScriptTagProxy<PagingLoadResult<FileModel>> proxy = new ScriptTagProxy<PagingLoadResult<FileModel>>("") {
-		
-		protected String generateUrl(Object loadConfig) {
-			String s = super.generateUrl(loadConfig);
-			InfoConfig ifg = new InfoConfig("url", url + "<br>" + s);
-			ifg.width = 600;
-			ifg.display = 4000;
-			Info.display(ifg);
-			return s;
-		}
+	private ScriptTagProxy<ListLoadResult<FileModel>> proxy = new ScriptTagProxy<ListLoadResult<FileModel>>("") {
+		/*
+		 * protected String generateUrl(Object loadConfig) { String s =
+		 * super.generateUrl(loadConfig); InfoConfig ifg = new InfoConfig("url",
+		 * url + "<br>" + s); ifg.width = 600; ifg.display = 4000;
+		 * Info.display(ifg); return s; }
+		 */
 	};
 
 	public StoreController(String url) {
@@ -101,20 +99,24 @@ public class StoreController extends Controller {
 		mt.addField(df3);
 		mt.addField("type");
 
-		JsonLoadResultReader<PagingLoadResult<FileModel>> reader = new JsonLoadResultReader<PagingLoadResult<FileModel>>(mt) {
+		JsonLoadResultReader<ListLoadResult<FileModel>> reader = new JsonLoadResultReader<ListLoadResult<FileModel>>(mt) {
 			@Override
 			protected ListLoadResult<ModelData> newLoadResult(Object loadConfig, List<ModelData> models) {
-				PagingLoadConfig pagingConfig = (PagingLoadConfig) loadConfig;
-				PagingLoadResult<ModelData> result = new BasePagingLoadResult<ModelData>(models, pagingConfig.getOffset(), pagingConfig.getLimit());
+				ListLoadConfig listLoadConfig = (ListLoadConfig) loadConfig;
+				BaseListLoadResult<ModelData> result = new BaseListLoadResult<ModelData>(models);
+				for (Iterator<ModelData> iterator = models.iterator(); iterator.hasNext();) {
+					ModelData modelData = iterator.next();
+					modelData.set("path", listLoadConfig.get("src"));
+				}
 				return result;
 			}
-			
+
 			@Override
 			protected ModelData newModelInstance() {
 				return new FileModel();
 			}
 		};
-		loader = new BasePagingLoader<PagingLoadResult<FileModel>>(proxy, reader);
+		loader = new BaseListLoader<ListLoadResult<FileModel>>(proxy, reader);
 
 		loader.addLoadListener(new LoadListener() {
 			public void loaderBeforeLoad(LoadEvent le) {
@@ -122,7 +124,7 @@ public class StoreController extends Controller {
 			}
 
 			public void loaderLoad(LoadEvent le) {
-				Info.display("JData", "Loading complete:" + loader.getTotalCount());
+				Info.display("JData", "Loading complete");
 				FilesEvents.fireStoreChanged(store);
 			}
 
@@ -137,6 +139,22 @@ public class StoreController extends Controller {
 		loader.setSortField(sortField);
 		loader.setRemoteSort(false);
 		store = new ListStore<FileModel>(loader);
+		store.setStoreSorter(new StoreSorter<FileModel>() {
+
+			@Override
+			public int compare(Store<FileModel> store, FileModel m1, FileModel m2, String property) {
+				boolean m1Folder = m1.isDirectory();
+				boolean m2Folder = m2.isDirectory();
+
+				if (m1Folder && !m2Folder) {
+					return -1;
+				} else if (!m1Folder && m2Folder) {
+					return 1;
+				}
+
+				return super.compare(store, m1, m2, property);
+			}
+		});
 		Registry.register(symbol, store);
 		loader.load();
 	}

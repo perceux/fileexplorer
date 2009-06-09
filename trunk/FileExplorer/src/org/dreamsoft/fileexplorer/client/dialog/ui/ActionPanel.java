@@ -14,12 +14,12 @@ public class ActionPanel extends LayoutContainer {
 
 	protected void initUI() {
 		VBoxLayout layout = new VBoxLayout();  
-        layout.setPadding(new Padding(5));  
+        layout.setPadding(new Padding(0));  
         layout.setVBoxLayoutAlign(VBoxLayoutAlign.STRETCH);  
         setLayout(layout);  
   
-        add(new AddressToolBar(), new VBoxLayoutData(new Margins(0, 0, 5, 0)));  
-        add(new ActionToolBar(), new VBoxLayoutData(new Margins(0, 0, 5, 0)));  
+        add(new AddressToolBar(), new VBoxLayoutData(new Margins(0, 0, 0, 0)));  
+        add(new ActionToolBar(), new VBoxLayoutData(new Margins(0, 0, 0, 0)));  
 
 	}
 }

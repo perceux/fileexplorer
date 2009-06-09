@@ -5,7 +5,6 @@ package org.dreamsoft.fileexplorer.client.dialog.ui;
 
 import org.dreamsoft.fileexplorer.client.dialog.controler.FilesEvents;
 import org.dreamsoft.fileexplorer.client.dialog.model.Favorite;
-import org.dreamsoft.fileexplorer.client.dialog.model.FileModel;
 
 import com.extjs.gxt.ui.client.Style.Scroll;
 import com.extjs.gxt.ui.client.event.ComponentEvent;
@@ -58,7 +57,21 @@ public class NavigationPanel extends ContentPanel {
         FilesEvents.fireDirectoryChanged(dir);
       }
     };
-    favList.addListener(Events.SelectionChange, listener); 
+    favList.addListener(Events.SelectionChange, listener);
+    
+    // The directory panel
+    add(new DirectoryPanel("http://localhost:8080/php/file.php"));
+    
+    
+    // The history panel
+    ContentPanel histoPane = new ContentPanel();
+    histoPane.setBorders(true);
+    histoPane.setBodyBorder(false);
+    histoPane.setLayout(new FitLayout());
+    histoPane.setHeading("History");
+    histoPane.setScrollMode(Scroll.AUTO);
+    add(histoPane);
+    
   }
 
   /**

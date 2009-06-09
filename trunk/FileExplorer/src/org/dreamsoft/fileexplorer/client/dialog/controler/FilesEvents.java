@@ -11,7 +11,6 @@ import org.dreamsoft.fileexplorer.client.dialog.ui.FilePanel.DisplayType;
 import com.extjs.gxt.ui.client.event.EventType;
 import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Dispatcher;
-import com.extjs.gxt.ui.client.store.GroupingStore;
 import com.extjs.gxt.ui.client.store.ListStore;
 
 /**

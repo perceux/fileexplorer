@@ -42,6 +42,24 @@ public class FileModel extends BaseModelData implements ModelData, Serializable 
 	};
 
 	/**
+	 * @return the pathname
+	 */
+	public String getPathName() {
+		String basePath = getPath();
+		if (basePath == null)
+			basePath = "";
+		String fileName = getName();
+		return basePath + ((fileName == null) ? "" : (((basePath.endsWith("/") || fileName.startsWith("/")) ? "" : "/") + fileName));
+	}
+
+	/**
+	 * @return the path
+	 */
+	public String getPath() {
+		return (String) get("path");
+	}
+
+	/**
 	 * @return the name
 	 */
 	public String getName() {
