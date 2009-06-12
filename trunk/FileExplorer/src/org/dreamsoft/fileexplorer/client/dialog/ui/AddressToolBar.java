@@ -66,7 +66,8 @@ public class AddressToolBar extends ToolBar {
 	 */
 	protected void initUI() {
 		addStyleName("address-tb");
-		prev = new Button("", "icon-previous");
+		prev = new Button("");
+		prev.setIconStyle("icon-previous");
 		prev.setEnabled(false);
 		prev.addListener(Events.Select, new Listener<ButtonEvent>() {
 			public void handleEvent(ButtonEvent be) {
@@ -78,7 +79,8 @@ public class AddressToolBar extends ToolBar {
 			}
 		});
 		add(prev);
-		next = new Button("", "icon-next");
+		next = new Button("");
+		next.setIconStyle("icon-next");
 		next.setEnabled(false);
 		next.addListener(Events.Select, new Listener<ButtonEvent>() {
 			public void handleEvent(ButtonEvent be) {
@@ -107,7 +109,8 @@ public class AddressToolBar extends ToolBar {
 		address.setValue("/");
 		add(address);
 		// Refresh
-		refresh = new Button("", "x-tbar-refresh");
+		refresh = new Button("");
+		refresh.setIconStyle("x-tbar-refresh");
 		refresh.addListener(Events.Select, new Listener<ButtonEvent>() {
 			public void handleEvent(ButtonEvent be) {
 				fromNavigation = true;

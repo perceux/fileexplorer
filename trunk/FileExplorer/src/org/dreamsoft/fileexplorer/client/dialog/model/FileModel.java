@@ -23,6 +23,7 @@ public class FileModel extends BaseModelData implements ModelData, Serializable 
 		if ("name".equals(property)) {
 			String name = (String) value;
 			set("shortName", (name != null && name.length() > 15) ? name.substring(0, 13) + "..." : name);
+			set("id", name);
 			String ext = "";
 			if (name != null && name.indexOf('.') > -1) {
 				ext = name.substring(1 + name.lastIndexOf('.'));
@@ -37,6 +38,7 @@ public class FileModel extends BaseModelData implements ModelData, Serializable 
 		if (kext != null) {
 			set("icon48x48", "images/mime/48x48/" + kext + ".gif");
 			set("icon16x16", "images/mime/16x16/" + kext + ".gif");
+			set("leaf", !isDirectory());
 		}
 		return super.set(property, value);
 	};

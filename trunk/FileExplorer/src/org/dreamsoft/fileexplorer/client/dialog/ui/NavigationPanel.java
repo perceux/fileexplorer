@@ -35,7 +35,10 @@ public class NavigationPanel extends ContentPanel {
   public NavigationPanel() {
     setLayout(new AccordionLayout());
     setBorders(false);
-
+    
+    // The directory panel
+    add(new DirectoryPanel("http://localhost:8080/php/file.php"));
+    
     // The favorite panel
     ContentPanel favoritePane = new ContentPanel();
     favoritePane.setBorders(true);
@@ -58,10 +61,6 @@ public class NavigationPanel extends ContentPanel {
       }
     };
     favList.addListener(Events.SelectionChange, listener);
-    
-    // The directory panel
-    add(new DirectoryPanel("http://localhost:8080/php/file.php"));
-    
     
     // The history panel
     ContentPanel histoPane = new ContentPanel();

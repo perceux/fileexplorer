@@ -61,21 +61,24 @@ public class ActionToolBar extends ToolBar {
 
 		Menu displayMenu = new Menu();
 		MenuItem item;
-		item = new MenuItem("Mosaic", "icon-display-mosaic");
+		item = new MenuItem("Mosaic");
+		item.setIconStyle("icon-display-mosaic");
 		item.addSelectionListener(new SelectionListener<MenuEvent>() {
 			public void componentSelected(MenuEvent ceP) {
 				changeDisplay(DisplayType.MOSAIC);
 			}
 		});
 		displayMenu.add(item);
-		item = new MenuItem("List", "icon-display-list");
+		item = new MenuItem("List");
+		item.setIconStyle("icon-display-list");
 		item.addSelectionListener(new SelectionListener<MenuEvent>() {
 			public void componentSelected(MenuEvent ceP) {
 				changeDisplay(DisplayType.LIST);
 			}
 		});
 		displayMenu.add(item);
-		item = new MenuItem("Detail", "icon-display-detail");
+		item = new MenuItem("Detail");
+		item.setIconStyle("icon-display-detail");
 		item.addSelectionListener(new SelectionListener<MenuEvent>() {
 			public void componentSelected(MenuEvent ceP) {
 				changeDisplay(DisplayType.DETAIL);
@@ -87,7 +90,8 @@ public class ActionToolBar extends ToolBar {
 		add(displaySplitItem);
 
 		// New directory button
-		Button newDirectory = new Button("New directory", "icon-newdirectory");
+		Button newDirectory = new Button("New directory");
+		newDirectory.setIconStyle("icon-newdirectory");
 		add(newDirectory);
 	}
 

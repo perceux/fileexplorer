@@ -50,10 +50,9 @@ public class FileDetail extends AbstractFileUI {
 		List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
 		ColumnConfig column = new ColumnConfig("icon16x16", "", 22);
 		column.setRenderer(new GridCellRenderer<FileModel>() {
-			public String render(FileModel model, String property, ColumnData config, int rowIndex, int colIndex, ListStore<FileModel> store) {
+			public Object render(FileModel model, String property, ColumnData config, int rowIndex, int colIndex, ListStore<FileModel> store, Grid<FileModel> grid) {
 				return "<img src='" + model.getIcon16x16() + "'/>";
 			}
-
 		});
 		configs.add(column);
 		column = new ColumnConfig("name", "Name", 200);
