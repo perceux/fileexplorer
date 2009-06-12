@@ -1,5 +1,7 @@
 package org.dreamsoft.fileexplorer.client.dialog.ui;
 
+import java.util.List;
+
 import org.dreamsoft.fileexplorer.client.dialog.model.FileModel;
 
 import com.extjs.gxt.ui.client.data.BaseTreeLoader;
@@ -13,6 +15,7 @@ import com.extjs.gxt.ui.client.data.TreeLoader;
 import com.extjs.gxt.ui.client.event.LoadListener;
 import com.extjs.gxt.ui.client.store.TreeStore;
 import com.extjs.gxt.ui.client.widget.Info;
+import com.google.gwt.user.client.Window;
 
 public class TreeJsonStore<D extends ModelData> {
 
@@ -26,11 +29,31 @@ public class TreeJsonStore<D extends ModelData> {
 		// so....
 //		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
 //		HttpProxy<ListLoadResult<ModelData>> proxy = new HttpProxy<ListLoadResult<ModelData>>(builder);
-		JsonReader<ListLoadResult<ModelData>> reader = new JsonReader<ListLoadResult<ModelData>>(mt);
+		JsonReader<List<FileModel>> reader = new JsonReader<List<FileModel>>(mt) {
+			@Override
+			public List<FileModel> read(Object loadConfig, Object data) {
+				ModelData config = (ModelData) loadConfig;
+				List<FileModel> l = super.read(loadConfig, data);
+				for (FileModel fileModel : l) {
+					fileModel.set("path", config.get("src"));
+				}
+				return l;
+			}
+			@Override
+			protected ModelData newModelInstance() {
+				return new FileModel();
+			}
+		};
+
 		TreeLoader<D> loader = new BaseTreeLoader<D>(proxy2, reader) {
+			public boolean loadChildren(D parent) {
+				Window.alert(""+parent.getClass());
+				
+				return super.loadChildren(parent);
+			};
 			@Override
 			public boolean hasChildren(D parent) {
-				return true;//"true".equals(parent.get("haveChildren").toString());
+				return "true".equals(parent.get("leaf").toString());
 			}
 
 			@Override
@@ -39,7 +62,14 @@ public class TreeJsonStore<D extends ModelData> {
 				// http proxy will set all properties of model into request
 				// paramerters, so the model name and id will be passed to
 				// server
-				return super.prepareLoadConfig(config);
+				FileModel fm = new FileModel();
+				Window.alert(""+config.getClass());
+				
+				if (config instanceof FileModel) {
+					FileModel md = (FileModel) config;
+					fm.set("src", md.getPathName());
+				}
+				return fm;
 			}
 		};
 
@@ -54,6 +84,7 @@ public class TreeJsonStore<D extends ModelData> {
 
 			@Override
 			public void loaderLoadException(LoadEvent le) {
+				le.exception.printStackTrace();
 				Info.display("Loading Error", "" + le.exception.getMessage());
 			}
 
