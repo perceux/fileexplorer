@@ -1,5 +1,6 @@
 package org.dreamsoft.fileexplorer.client.dialog.ui;
 
+import org.dreamsoft.fileexplorer.client.dialog.SiteManager;
 import org.dreamsoft.fileexplorer.client.dialog.controler.FileListLoadConfig;
 import org.dreamsoft.fileexplorer.client.dialog.model.FileModel;
 
@@ -84,8 +85,9 @@ public class DirectoryPanel extends ContentPanel {
 		mt.setTotalName("total");
 		mt.addField("name");
 		mt.addField("type");
-
-		store = new TreeJsonStore<FileModel>(mt, "http://localhost:8080/php/file.php", proxy);
+		
+		
+		store = new TreeJsonStore<FileModel>(mt, SiteManager.getLocalUrl() + "/php/file.php", proxy);
 
 		dirs = new Tree();
 		dirs.getStyle().setLeafIconStyle("icon-music");
