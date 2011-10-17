@@ -1,5 +1,6 @@
 package org.dreamsoft.fileexplorer.client.dialog.ui;
 
+import org.dreamsoft.fileexplorer.client.dialog.SiteManager;
 import org.dreamsoft.fileexplorer.client.dialog.controler.FileControler;
 import org.dreamsoft.fileexplorer.client.dialog.controler.StoreController;
 import org.dreamsoft.fileexplorer.client.dialog.model.Favorite;
@@ -24,7 +25,7 @@ public class FileExplorerPanel extends LayoutContainer {
 		// Register the view/controler
 		Dispatcher dispatcher = Dispatcher.get();
 		dispatcher.addController(new FileControler(filePanel, fileDescription));
-		dispatcher.addController(new StoreController("http://localhost:8080/php/file.php"));
+		dispatcher.addController(new StoreController(SiteManager.getLocalUrl() + "/php/file.php"));
 	}
 
 	protected void initUI() {

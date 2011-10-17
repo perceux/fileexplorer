@@ -3,6 +3,7 @@
  */
 package org.dreamsoft.fileexplorer.client.dialog.ui;
 
+import org.dreamsoft.fileexplorer.client.dialog.SiteManager;
 import org.dreamsoft.fileexplorer.client.dialog.controler.FilesEvents;
 import org.dreamsoft.fileexplorer.client.dialog.model.Favorite;
 
@@ -37,7 +38,7 @@ public class NavigationPanel extends ContentPanel {
     setBorders(false);
     
     // The directory panel
-    add(new DirectoryPanel("http://localhost:8080/php/file.php"));
+    add(new DirectoryPanel(SiteManager.getLocalUrl() + "/php/file.php"));
     
     // The favorite panel
     ContentPanel favoritePane = new ContentPanel();
